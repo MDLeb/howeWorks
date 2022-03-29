@@ -38,17 +38,20 @@ function task2() {
 }
 
 function task3() {
-    let str = prompt('Введите строку из 6 цифр:').split('');
-    let sum1 = 0, sum2 = 0;
-    for(let i = 0; i < str.length/2; i++) {
-        sum1 += parseInt(str[i]);
-    }
-    for(let i = str.length - 1; i >= str.length/2; i--) {
-        sum2 += parseInt(str[i]);
-    }
+    let str = prompt('Введите строку из 6 цифр:');
+    if (str) {
+        str = str.split('');
+        let sum1 = 0, sum2 = 0;
+        for(let i = 0; i < str.length/2; i++) {
+            sum1 += parseInt(str[i]);
+        }
+        for(let i = str.length - 1; i >= str.length/2; i--) {
+            sum2 += parseInt(str[i]);
+        }
 
-    let result = (sum1 > sum2 ? 'больше' : sum1 == sum2 ? 'равна' : 'меньше');
-    console.log(`Сумма первых ${str.length/2} цифр ${result} cуммы последних ${str.length/2} цифр`);
+        let result = (sum1 > sum2 ? 'больше' : sum1 == sum2 ? 'равна' : 'меньше');
+        console.log(`Сумма первых ${str.length/2} цифр ${result} cуммы последних ${str.length/2} цифр`);
+    }
 }
 
 function task4() {
@@ -76,7 +79,6 @@ function task7() {
     else if (minute < 30) console.log('2 четверть');
     else if (minute < 45) console.log('3 четверть');
     else if (minute <= 59) console.log('4 четверть');
-    else {} 
 }
 
 function task8() {
@@ -84,7 +86,6 @@ function task8() {
     if (day <= 10) console.log('1 декада');
     else if (day <= 20) console.log('2 декада');
     else if (day <= 31) console.log('3 декада');
-    else {} 
 }
 
 function task9() {
@@ -96,12 +97,15 @@ function task9() {
     let hours = allDays * 24;
     let minutes = allDays * 24 * 60;
     let seconds = allDays * 24 * 60 * 60;
-    let result = `${allDays} дней - это ` +
+    let result;
+    if(allDays){
+        result = `${allDays} дней - это ` +
                  `${years < 1 ? 'меньше года ' : (Number(String(years).split('').slice(-1))) == 1 ? years + ' год ' : (Number(String(years).split('').slice(-1))) >= 2 && (Number(String(years).split('').slice(-1))) <= 4 ? years + ' года ' : years + ' лет '}` + 
                  `${months < 1 ? 'меньше месяца ' : months == 1 ? months + ' месяц ' : months >= 2 && months <= 4 ? months + ' месяца ' : months + ' месяцев '}` +
                  `${days == 0 ? '' : days == 1 || days == 21 ? days + ' день ' : (days >= 2 && + days <= 4) || (days >= 21 && + days <= 24) ? days + ' дня ' : days + ' дней '}` + 
                  `или ${(Number(String(hours).split('').slice(-1))) == 1 ? hours + ' час ' : (Number(String(hours).split('').slice(-1))) >= 2 && (Number(String(hours).split('').slice(-1))) <= 4 ? hours + ' часа' : years + ' часов'} или ${minutes} минут или ${seconds} секунд`;
-    console.log(result);
+        console.log(result);
+    }
 }
 
 function task10() {
