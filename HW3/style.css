@@ -1,0 +1,54 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+.taskArea {
+    display: flex;
+    flex-direction: column;
+    height: min-content;
+    transition: all ease 1s;
+}
+.taskArea.active {
+    min-height: 120px;
+    height: auto;
+}
+.taskArea .task {
+    display: none;
+    
+}
+.taskArea.active .task {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    min-height: fit-content;
+}
+.task button {
+    display: inline;
+    width: 150px;
+}
+.task .display {
+    width: 100%;
+    text-align: center;
+    height: min-content;
+    background-color: rgb(199, 243, 228);
+}
+.taskArea>button {
+    display: block;
+    height: 20px;
+    width: 100%;
+}
+.taskArea button .arrow::after {
+    content: '▼';
+    display: inline-block;
+    width: 20px;
+    font-size: 12px;
+    color: #ccc;
+}
+.taskArea button.active .arrow::after {
+    content: '▲';
+    color: white;
+}
+.taskArea button.active {
+    background-color: #ccc;
+}

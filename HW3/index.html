@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div style="display: flex; flex-direction: column;">
+        <div class="taskArea">
+            <button onclick="task1(this), addArea(event)">Задание 1<span class="arrow"></span></button>
+            <div class="task">
+                <span>Введите диапазон чисел для вывода:</span>
+                <div>
+                    от <input type="text" id="start1">
+                    до <input type="text" id="end1">
+                </div>
+                <div>
+                    от <input type="text" id="start2">
+                    до <input type="text" id="end2">
+                </div>
+                <button class="write">Вывести числа</button>
+                <button class="clear" onclick="clearDisplay(this)">Очистить вывод</button>
+                <div class="display"></div>
+            </div>
+        </div>
+        <div class="taskArea">
+            <button onclick="task2(this), addArea(event)">Задание 2<span class="arrow"></span></button>
+            <div class="task">
+                <span>Введите диапазон чисел:</span>
+                <div>
+                    от <input type="text" id="start1">
+                    до <input type="text" id="end1">
+                </div>
+                <button class="write">Вывести числа</button>
+                <button class="clear" onclick="clearDisplay(this)">Очистить вывод</button>
+                <div class="display"></div>
+            </div>
+        </div>  
+        <div class="taskArea">
+            <button onclick="task3(this), addArea(event)">Задание 3<span class="arrow"></span></button>
+            <div class="task">
+                <span>Введите диапазон чисел:</span>
+                <div>
+                    от <input type="text" id="start1">
+                    до <input type="text" id="end1">
+                </div>
+                <button class="write">Вычислить сумму</button>
+                <button class="clear" onclick="clearDisplay(this)">Очистить вывод</button>
+                <div class="display"></div>
+            </div>
+        </div>
+        <div class="taskArea">
+            <button onclick="task4(this), addArea(event)">Задание 4<span class="arrow"></span></button>
+        </div>
+        <div class="taskArea">
+            <button onclick="task5(this), addArea(event)">Задание 5<span class="arrow"></span></button>
+        </div>
+        <div class="taskArea">
+            <button onclick="task6(this), addArea(event)">Задание 6<span class="arrow"></span></button>
+        </div>
+        <div class="taskArea">
+            <button onclick="task7(this), addArea(event)">Задание 7<span class="arrow"></span></button>
+        </div>
+        <div class="taskArea">
+            <button onclick="task8(this), addArea(event)">Задание 8<span class="arrow"></span></button>
+        </div>
+        <div class="taskArea">
+            <button onclick="task9(this), addArea(event)">Задание 9<span class="arrow"></span></button>
+        </div>
+        <div class="taskArea">
+            <button onclick="task10(this), addArea(event)">Задание 10<span class="arrow"></span></button</div>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+</html>
