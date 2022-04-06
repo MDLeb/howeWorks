@@ -30,7 +30,7 @@ function func4_ShowArray () {
     console.log(arr);
 }
 function func5_IsEven (number) {
-    if(number % 2 !== 0) return false
+    if(number % 2 !== 0) return false;
     else return true;
 }
 function func6 (arr) {
@@ -154,7 +154,7 @@ function func12() {
     console.log(border);    
 }
 
-function func12() {
+function func13() {
     let email = prompt('Введите адрес почты');
     let flag = true;
     function errorMess(mes) {
