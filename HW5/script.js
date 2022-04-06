@@ -1,9 +1,9 @@
-function func1 (a, b, c) {
+function func1(a, b, c) {
     let result = (a - b) / c;
     console.log(result);
 }
 
-function func2 (a) {
+function func2(a) {
     let res1 = Math.pow(a, 2);
     let res2 = Math.pow(a, 3);
     console.log('Квадрат числа = ', res1, 'Куб числа = ', res2)
@@ -12,11 +12,11 @@ function func3_Max (a, b) {
     if(a >= b) return a;
     else return b;
 }
-function func3_Min (a, b) {
+function func3_Min(a, b) {
     if(a <= b) return a;
     else return b;
 }
-function func4_SetArray () {
+function func4_SetArray() {
     let a = +prompt('Введите первое число');
     let b = +prompt('Введите второе число');
     let arr = [];
@@ -25,22 +25,22 @@ function func4_SetArray () {
     }
     return arr;
 }
-function func4_ShowArray () {
+function func4_ShowArray() {
     let arr = func4_SetArray();
     console.log(arr);
 }
-function func5_IsEven (number) {
+function func5_IsEven(number) {
     if(number % 2 !== 0) return false;
     else return true;
 }
-function func6 (arr) {
+function func6(arr) {
     let arr2 = [];
     for(let i = 0; i < arr.length; i++) {
         if(func5_IsEven(arr[i])) arr2.push(arr[i]);
     }
     return arr2;
 }
-function func7 (n, symb) {
+function func7(n, symb) {
     for(let i = 1; i <= n; i++){
         let str = '';
         for(let j = 0; j < i; j++) {
@@ -49,7 +49,7 @@ function func7 (n, symb) {
         console.log(str);
     }
 }
-function func8 () {
+function func8() {
     let h = +prompt('Введите высоту треугольника');
     for (let i = 0; i < h; i++) {
         let str = '';
@@ -60,7 +60,7 @@ function func8 () {
         console.log(str);
     }
 }
-function func8_reverse () {
+function func8_reverse() {
     let h = +prompt('Введите высоту треугольника');
     for (let i = h; i >= 0; i--) {
         let str = '';
@@ -72,7 +72,7 @@ function func8_reverse () {
     }
 }
 
-function func9_Fibon () {
+function func9_Fibon() {
     let arr = [];
     let num1 = 0;
     let num2 = 1;
@@ -89,7 +89,7 @@ function func9_Fibon () {
     console.log(arr);
 
 }
-function func9_Fibon_2 () {
+function func9_Fibon_2() {
     let arr = [];
     let num1 = 0;
     let num2 = 1;
@@ -109,7 +109,7 @@ function func9_Fibon_2 () {
     console.log(arr);
 }
 
-function func10 (n) { 
+function func10(n) { 
     if(n > 10){
         arr = Array.from(String(n));
         let a = 0;
@@ -155,7 +155,7 @@ function func12() {
 }
 
 function func13() {
-    let email = prompt('Введите адрес почты');
+    let email = prompt('Введите адрес почты').toLowerCase();
     let flag = true;
     function errorMess(mes) {
         flag = false;
@@ -165,8 +165,11 @@ function func13() {
     let availableChars = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     let availableCharsSpec = ['-', '_', '.', '@'];
     
-    Array.from(email).forEach(char =>{
-        if(!availableChars.includes(char) && !availableCharsSpec.includes(char)) errorMess('недопустимые символы');
+    Array.from(email).forEach(char => {
+        if(!availableChars.includes(char) && !availableCharsSpec.includes(char)) {
+            errorMess('недопустимые символы');
+            return;
+        }
     });
     // проверка на наличие @
     if(email.indexOf('@') != email.lastIndexOf('@') || email.indexOf('@') == -1) errorMess('отсутствует @')
@@ -174,9 +177,6 @@ function func13() {
     // проверка на наличие . после @
     if(email.lastIndexOf('.') < email.indexOf('@') || email.indexOf('.') == -1) errorMess('отсутствует . после @')
     
-    // проверка на наличие . после @
-
-
     //проверка первого и последнего
     if(availableCharsSpec.includes(email[0]) || availableCharsSpec.includes(email[email.length - 1])) errorMess('некорректный первый или последний символ');    
     
