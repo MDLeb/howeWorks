@@ -6,7 +6,7 @@ function func1 (a, b, c) {
 function func2 (a) {
     let res1 = Math.pow(a, 2);
     let res2 = Math.pow(a, 3);
-    console.log(res1, res2)
+    console.log('Квадрат числа = ', res1, 'Куб числа = ', res2)
 }
 function func3_Max (a, b) {
     if(a >= b) return a;
