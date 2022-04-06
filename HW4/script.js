@@ -68,7 +68,7 @@ function task8() {
         i--;
     }
     console.log(arr2);
-    console.log(arr.reverse());
+    console.log(arr.reverse(), arr);
 }
 function task9() {
     let arr = [5, 9, 21, , , 9, 78, , , , 6];
@@ -96,8 +96,8 @@ function task11() {
     for (let i = 0; i < h; i++) {
         let str = '';
         for (let j = 0; j < h*2+1; j++) {
-            if(j == h+i || j == h-i || (j < h+i && j > h-i)) str += '+';
-            else str += '-';
+            if(j == h+i || j == h-i || (j < h+i && j > h-i)) str += '^';
+            else str += ' ';
         }
         console.log(str);
     }
