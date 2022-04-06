@@ -62,14 +62,13 @@ function task7() {
 function task8() {
     let arr = [12, false, 'Текст', 4, 2, -5, 0];
     let arr2 = [];
-    let arr3 = arr2.reverse();
     let i = arr.length - 1;
     while(i >= 0) {
         arr2.push(arr[i]);
         i--;
     }
     console.log(arr2);
-    console.log(arr3);
+    console.log(arr.reverse());
 }
 function task9() {
     let arr = [5, 9, 21, , , 9, 78, , , , 6];
