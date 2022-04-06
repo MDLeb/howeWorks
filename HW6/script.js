@@ -1,5 +1,6 @@
 function func1() {
-
+    let str = 'aaa@bbb@ccc';
+    console.log(str.replace((/@/g), '!'));
 }
 function func2() {
     let date = prompt('Введите дату в формате гггг-мм-дд');
