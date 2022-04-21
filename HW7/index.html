@@ -4,11 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
 </head>
 <body>
-
-<script src="script.js"></script>
-<script src="script2.js"></script>
+    <div class="wrapper">
+       <div class="todo-list">
+            <h3>ToDo List</h3>
+            <div class="todo-list__items">
+                <template id="todo-item">
+                    <div class="todo-item">
+                        <span class="text"></span>
+                        <input class="id" hidden>
+                        <input class="checkbox" type="checkbox" onchange="changeState(this)">
+                    </div>
+                </template>
+            </div>
+            <div class="btns">
+                <button class="btn add-todo-item" onclick="addItem()">Add item</button>
+                <button class="btn delete-completed-items" onclick="deleteCompleted()">Delete completed</button>
+                <button class="btn clear-list" onclick="clearList()">Clear list</button>    
+            </div>
+       </div>
+       <div class="modal">
+            <input type="text" placeholder="Write down what you have to do">
+            <button class="btn modal-ok" onclick="addItemOk(this)">Ok</button>
+       </div>
+    </div>
+    <footer class="footer">
+        <span>&copy; Minsk 2022</span>
+    </footer>
+<!-- <script src="js/script.js"></script>
+<script src="js/script2.js"></script> -->
+<script src="js/script3.js"></script>
 </body>
 </html>
