@@ -24,7 +24,7 @@ setStyle(mainDivObj, {
 let mainH2Obj = createELem('h2', 'main_h2');
 mainH2Obj.innerText = 'Choose Your Option';
 setStyle(mainH2Obj, {
-    'font-family': 'Arvo', //подключить
+    'font-family': 'Arvo', 
     'font-size': '36px',
     'line-height': '48px',
     'text-align': 'center',
@@ -96,7 +96,7 @@ setStyle(btnObj, {
     'border': '3px solid #FFC80A',
     'border-radius': '50px',
     'font-size': '12px',
-    'font-family': 'Montserrat, serif', //подключить
+    'font-family': 'Montserrat, serif', 
     'font-weight': 'bold',
     'text-align': 'center',
     'letter-spacing': '2.4px',
