@@ -5,6 +5,7 @@ let Cat = function(_name = 'Cat', _age = 0) {
 
     let hungry = 10;
     let wc = 0;
+    let pooNumber = 0;
     let energy = 100;
 
     let isSleeping = false;
@@ -52,9 +53,10 @@ let Cat = function(_name = 'Cat', _age = 0) {
         }
     }
     let int4;
-    this.toPee = (i = 0, stop = false) => {
-        int4 = setTimeout(() => {
+    this.toPee = (i = 0) => {
+         int4 = setTimeout(() => {
             isClean = false;
+           
             this.checkControls();
             if(i == 1){
                 document.querySelector('.cat_poo').style.setProperty('--bg-poo', 'url("source/catPoo1.png")');
@@ -69,7 +71,11 @@ let Cat = function(_name = 'Cat', _age = 0) {
     }
     this.toClean = () => {
         document.querySelector('.cat_poo').style.setProperty('--bg-poo', '');
-        isClean = true;
+        pooNumber--;
+        if(!pooNumber) {
+            document.querySelector('.cat_poo_number').innerText = '';
+            isClean = true;
+        } else document.querySelector('.cat_poo_number').innerText = `x ${pooNumber}`;
         this.checkControls();
         clearTimeout(int4);
     }
@@ -130,6 +136,8 @@ let Cat = function(_name = 'Cat', _age = 0) {
         int3 = setInterval(() => {
             if(wc == 100) {
                 this.toPee();
+                pooNumber++;
+                if(pooNumber) document.querySelector('.cat_poo_number').innerText = `x ${pooNumber}`;
                 wc = 0;
             }
             else {
@@ -157,8 +165,10 @@ const Clean = () => {
 let myCat = new Cat();
 
 const main = () => {
-    myCat.setName(prompt('Enter cat`s name'));
-    myCat.setAge(prompt('Enter cat`s age'));
+    //myCat.setName(prompt('Enter cat`s name'));
+    //myCat.setAge(prompt('Enter cat`s age'));
+
+    myCat.checkControls();
 
     document.querySelector('.cat__info_name').innerText = `Name: ${myCat.getName()}`;
     document.querySelector('.cat__info_age').innerText = `Age: ${myCat.getAge()}`;

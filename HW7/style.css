@@ -28,6 +28,12 @@
     bottom: 10px;
     background: var(--bg-poo) bottom/100% auto no-repeat;
 }
+.cat_poo_number{
+    position: absolute;
+    right: -25px;
+    bottom: 5px;
+    font-family: 'VT323', monospace;
+}
 .indicators div{
     height: 30px;
     width: 250px;
