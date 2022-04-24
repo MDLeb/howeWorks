@@ -13,6 +13,13 @@
     background: var(--bg-image) center/80% auto no-repeat;
     position: relative;
 }
+.cat__info {
+    position: absolute;
+    top: 0;
+    font-family: 'VT323', monospace;
+    color: red;
+    right: -200px;
+}
 .cat_poo {
     width: 50px;
     height: 150px;

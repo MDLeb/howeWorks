@@ -157,6 +157,8 @@ const Clean = () => {
 
 }
 
+document.querySelector('.cat__info_name').innerText = `Name: ${myCat.getName()}`;
+document.querySelector('.cat__info_age').innerText = `Age: ${myCat.getAge()}`;
 
 document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/cat.png")');
 
