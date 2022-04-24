@@ -3,9 +3,9 @@ let Cat = function(_name = 'Cat', _age = 0) {
     let age = _age;
     let isAlive = true;
 
-    let hungry = 50;
+    let hungry = 10;
     let wc = 0;
-    let energy = 50;
+    let energy = 100;
 
     let isSleeping = false;
     let isEating = false;
@@ -45,9 +45,10 @@ let Cat = function(_name = 'Cat', _age = 0) {
             this.live();
         }
     }
-
-    this.toPee = (i = 0) => {
-        setTimeout(() => {
+    let int4;
+    this.toPee = (i = 0, stop = false) => {
+        int4 = setTimeout(() => {
+            
             if(i == 1){
                 document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/poo1.png")');
                 i--;
@@ -58,6 +59,10 @@ let Cat = function(_name = 'Cat', _age = 0) {
             this.toPee(i);
 
         }, 500);
+    }
+    this.toClean = () => {
+        document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/cat.png")');
+        clearTimeout(int4);
     }
 
     this.toEat = () => {
@@ -86,8 +91,8 @@ let Cat = function(_name = 'Cat', _age = 0) {
             if(hungry > 100) {
                 clearInterval(int1);
                 clearInterval(int2);
-                isAlive = false;
-                return;
+               // isAlive = false;
+               // return;
             }
             document.querySelector('.hungry').style.setProperty('--hungry', `${hungry}%`);
         }, 200);
@@ -95,23 +100,22 @@ let Cat = function(_name = 'Cat', _age = 0) {
             energy--;
             if(energy == 0) {
                 clearInterval(int1, int2);
-                isAlive = false;
-                return;
+                //isAlive = false;
+                //return;
             }
             document.querySelector('.energy').style.setProperty('--energy', `${energy}%`);
         }, 1000);
         int3 = setInterval(() => {
-            wc++;
             if(wc == 100) {
-                clearInterval(int3);
                 this.toPee();
                 wc = 0;
             }
-            document.querySelector('.wc').style.setProperty('--wc', `${wc}%`);
+            else {
+                wc++;
+                document.querySelector('.wc').style.setProperty('--wc', `${wc}%`);
+            }
         }, 200);
     }
-
-
 }
 
 let myCat = new Cat("Barsik", 2);
@@ -122,7 +126,9 @@ const Eat = () => {
 const Sleep = () => {
     myCat.toSleep();
 }
-
+const Clean = () => {
+    myCat.toClean();
+}
 console.log(myCat.getAge(), myCat.getName());
 
 document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/cat.png")');
