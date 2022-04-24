@@ -71,12 +71,19 @@ let Cat = function(_name = 'Cat', _age = 0) {
     }
     this.toClean = () => {
         document.querySelector('.cat_poo').style.setProperty('--bg-poo', '');
+        this.checkControls();
         pooNumber--;
         if(pooNumber == 0) {
             document.querySelector('.cat_poo_number').innerText = '';
             isClean = true;
             this.checkControls();
-        } else document.querySelector('.cat_poo_number').innerText = `x ${pooNumber}`;
+        }else if(pooNumber < 0) {
+            pooNumber = 0;
+            isClean = true;
+            this.checkControls();
+        }else{
+            document.querySelector('.cat_poo_number').innerText = `x ${pooNumber}`;
+        }
         this.checkControls();
         clearTimeout(int4);
     }
