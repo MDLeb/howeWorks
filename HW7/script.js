@@ -166,8 +166,8 @@ const Clean = () => {
 let myCat = new Cat();
 
 const main = () => {
-    //myCat.setName(prompt('Enter cat`s name'));
-    //myCat.setAge(prompt('Enter cat`s age'));
+    myCat.setName(prompt('Enter cat`s name'));
+    myCat.setAge(prompt('Enter cat`s age'));
 
     myCat.checkControls();
 
