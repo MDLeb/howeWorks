@@ -34,6 +34,7 @@ let Cat = function(_name = 'Cat', _age = 0) {
         if(energy < 100)
         {
             isSleeping = true;
+            clearInterval(int3);
             setTimeout(() => {
             energy++;
              if(energy%2 == 0)
@@ -88,10 +89,12 @@ let Cat = function(_name = 'Cat', _age = 0) {
         clearTimeout(int4);
     }
 
-    this.toEat = () => {
+    this.toEat = (n = 10) => {
         clearInterval(int1);
-        if(hungry > 10){
+        if(hungry > 10 && n){
+            n--;
             isEating = true;
+            clearInterval(int3);
             setTimeout(() => {
                 hungry--;
                 if(hungry%2 == 0)
@@ -99,7 +102,7 @@ let Cat = function(_name = 'Cat', _age = 0) {
                 else
                     document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/eat2.png")');
                 document.querySelector('.hungry').style.setProperty('--hungry', `${hungry}%`);
-                this.toEat();
+                this.toEat(n);
             }, 500);
         }else{
             document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/cat.png")');
