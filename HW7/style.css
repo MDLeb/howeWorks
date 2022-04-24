@@ -49,19 +49,23 @@
     width: var(--wc);
 }
 .energy::after,
-.hungry::after {
+.hungry::after,
+.wc::after {
     content: '';
     height: 100%;
     width: 30px;
     display: block;
     position: absolute;
-    right: -30px;
+    right: -35px;
 } 
 .energy::after {
     background: url('source/energy.png') center/50% auto no-repeat;
 }
 .hungry::after {
     background: url('source/hungry.png') center/65% auto no-repeat;
+}
+.wc::after {
+    background: url('source/catPoo1.png') bottom/90% auto no-repeat;
 }
 .btn {
     background-color: transparent;
@@ -82,4 +86,9 @@
 }
 .btn.clean {
     background-color: rgb(181, 181, 252);
+}
+.btn.eat:disabled,
+.btn.clean:disabled,
+.btn.sleep:disabled {
+    background-color: #ccc;
 }

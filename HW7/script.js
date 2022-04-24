@@ -9,6 +9,7 @@ let Cat = function(_name = 'Cat', _age = 0) {
 
     let isSleeping = false;
     let isEating = false;
+    let isClean = true;
 
     this.getAge = () => {
         return age;
@@ -30,7 +31,9 @@ let Cat = function(_name = 'Cat', _age = 0) {
     this.toSleep = () => {
         clearInterval(int2);
         if(energy < 100)
-        setTimeout(() => {
+        {
+            isSleeping = true;
+            setTimeout(() => {
             energy++;
              if(energy%2 == 0)
                  document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/sleep1.png")');
@@ -39,16 +42,21 @@ let Cat = function(_name = 'Cat', _age = 0) {
             document.querySelector('.energy').style.setProperty('--energy', `${energy}%`);
             this.toSleep()
         }, 500);
+        }
+        
         else {
             document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/cat.png")');
-            clearInterval(int1);
+            clearInterval(int1, int3);
+            isSleeping = false;
+            this.checkControls();
             this.live();
         }
     }
     let int4;
     this.toPee = (i = 0, stop = false) => {
         int4 = setTimeout(() => {
-            
+            isClean = false;
+            this.checkControls();
             if(i == 1){
                 document.querySelector('.cat_poo').style.setProperty('--bg-poo', 'url("source/catPoo1.png")');
                 i--;
@@ -62,37 +70,54 @@ let Cat = function(_name = 'Cat', _age = 0) {
     }
     this.toClean = () => {
         document.querySelector('.cat_poo').style.setProperty('--bg-poo', '');
+        isClean = true;
+        this.checkControls();
         clearTimeout(int4);
     }
 
     this.toEat = () => {
         clearInterval(int1);
-        if(hungry > 10 && hungry < 100)
-        setTimeout(() => {
-            hungry--;
-             if(hungry%2 == 0)
-                 document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/eat1.png")');
-            else
-                 document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/eat2.png")');
-            document.querySelector('.hungry').style.setProperty('--hungry', `${hungry}%`);
-            this.toEat()
-        }, 500);
-        else {
+        if(hungry > 10 && hungry < 100){
+            isEating = true;
+            setTimeout(() => {
+                hungry--;
+                if(hungry%2 == 0)
+                    document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/eat1.png")');
+                else
+                    document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/eat2.png")');
+                document.querySelector('.hungry').style.setProperty('--hungry', `${hungry}%`);
+                this.toEat();
+            }, 500);
+        }else{
             document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/cat.png")');
-            clearInterval(int2);
+            clearInterval(int2, int3);
+            isEating = false;
+            this.checkControls();
             this.live();
         }
     }
 
+    this.checkControls = () => {
+        if(isEating || isSleeping)
+            document.querySelector('button.eat').setAttribute('disabled', '');
+        else document.querySelector('button.eat').removeAttribute('disabled');
+
+        if(isSleeping || isEating)
+            document.querySelector('button.sleep').setAttribute('disabled', '');
+        else document.querySelector('button.sleep').removeAttribute('disabled');
+
+        if(isClean)
+            document.querySelector('button.clean').setAttribute('disabled', '');
+        else document.querySelector('button.clean').removeAttribute('disabled');
+    }
     let int1, int2, int3;// 1 - hungry 2 - energy 3 - poo
     this.live = () => {
+
         int1 = setInterval(() => {
             hungry++;
             if(hungry > 100) {
                 clearInterval(int1);
                 clearInterval(int2);
-               // isAlive = false;
-               // return;
             }
             document.querySelector('.hungry').style.setProperty('--hungry', `${hungry}%`);
         }, 200);
@@ -100,8 +125,6 @@ let Cat = function(_name = 'Cat', _age = 0) {
             energy--;
             if(energy == 0) {
                 clearInterval(int1, int2);
-                //isAlive = false;
-                //return;
             }
             document.querySelector('.energy').style.setProperty('--energy', `${energy}%`);
         }, 1000);
@@ -122,14 +145,19 @@ let myCat = new Cat("Barsik", 2);
 
 const Eat = () => {
     myCat.toEat();
+    myCat.checkControls();
 }
 const Sleep = () => {
     myCat.toSleep();
+    myCat.checkControls();
+
 }
 const Clean = () => {
     myCat.toClean();
+    myCat.checkControls();
+
 }
-console.log(myCat.getAge(), myCat.getName());
+
 
 document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/cat.png")');
 
