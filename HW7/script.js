@@ -103,7 +103,7 @@ let Cat = function(_name = 'Cat', _age = 0) {
                     document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/eat2.png")');
                 document.querySelector('.hungry').style.setProperty('--hungry', `${hungry}%`);
                 this.toEat(n);
-            }, 500);
+            }, 300);
         }else{
             document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/cat.png")');
             clearInterval(int2, int3);
