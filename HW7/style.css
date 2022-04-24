@@ -2,6 +2,7 @@
     --bg-image: url("source/cat1.png");
     --hungry: 50%;
     --energy: 50%;
+    --wc: 0%;
 
 }
 
@@ -19,7 +20,8 @@
     margin: 10px 0;
 }
 .energy::before,
-.hungry::before {
+.hungry::before,
+.wc::before {
     content: '';
     display: block;
     position: absolute;
@@ -32,6 +34,10 @@
 .hungry::before {
     background-color: salmon;
     width: var(--hungry);
+}
+.wc::before {
+    background-color: rgb(130, 112, 90);
+    width: var(--wc);
 }
 .energy::after,
 .hungry::after {

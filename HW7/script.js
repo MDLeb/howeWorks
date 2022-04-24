@@ -7,6 +7,9 @@ let Cat = function(_name = 'Cat', _age = 0) {
     let wc = 0;
     let energy = 50;
 
+    let isSleeping = false;
+    let isEating = false;
+
     this.getAge = () => {
         return age;
     }
@@ -43,13 +46,23 @@ let Cat = function(_name = 'Cat', _age = 0) {
         }
     }
 
-    this.toPee = () => {
+    this.toPee = (i = 0) => {
+        setTimeout(() => {
+            if(i == 1){
+                document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/poo1.png")');
+                i--;
+            }else{
+                document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/poo2.png")');
+                i++;
+            }
+            this.toPee(i);
 
+        }, 500);
     }
 
     this.toEat = () => {
         clearInterval(int1);
-        if(hungry > 10)
+        if(hungry > 10 && hungry < 100)
         setTimeout(() => {
             hungry--;
              if(hungry%2 == 0)
@@ -66,29 +79,36 @@ let Cat = function(_name = 'Cat', _age = 0) {
         }
     }
 
-    let int1, int2;
-    this.live = (ating = false, sleeping = false) => {
+    let int1, int2, int3;// 1 - hungry 2 - energy 3 - poo
+    this.live = () => {
         int1 = setInterval(() => {
             hungry++;
-            if(hungry == 101) {
-            clearInterval(int1);
-            clearInterval(int2);
-            isAlive = false;
-            return;
-        }
+            if(hungry > 100) {
+                clearInterval(int1);
+                clearInterval(int2);
+                isAlive = false;
+                return;
+            }
             document.querySelector('.hungry').style.setProperty('--hungry', `${hungry}%`);
         }, 200);
         int2 = setInterval(() => {
             energy--;
             if(energy == 0) {
-            clearInterval(int1, int2);
-            isAlive = false;
-            return;
-        }
+                clearInterval(int1, int2);
+                isAlive = false;
+                return;
+            }
             document.querySelector('.energy').style.setProperty('--energy', `${energy}%`);
         }, 1000);
-        
-        
+        int3 = setInterval(() => {
+            wc++;
+            if(wc == 100) {
+                clearInterval(int3);
+                this.toPee();
+                wc = 0;
+            }
+            document.querySelector('.wc').style.setProperty('--wc', `${wc}%`);
+        }, 200);
     }
 
 
@@ -102,7 +122,9 @@ const Eat = () => {
 const Sleep = () => {
     myCat.toSleep();
 }
+
 console.log(myCat.getAge(), myCat.getName());
+
 document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/cat.png")');
 
 myCat.live();
