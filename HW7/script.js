@@ -50,10 +50,10 @@ let Cat = function(_name = 'Cat', _age = 0) {
         int4 = setTimeout(() => {
             
             if(i == 1){
-                document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/poo1.png")');
+                document.querySelector('.cat_poo').style.setProperty('--bg-poo', 'url("source/catPoo1.png")');
                 i--;
             }else{
-                document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/poo2.png")');
+                document.querySelector('.cat_poo').style.setProperty('--bg-poo', 'url("source/catPoo2.png")');
                 i++;
             }
             this.toPee(i);
@@ -61,7 +61,7 @@ let Cat = function(_name = 'Cat', _age = 0) {
         }, 500);
     }
     this.toClean = () => {
-        document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/cat.png")');
+        document.querySelector('.cat_poo').style.setProperty('--bg-poo', '');
         clearTimeout(int4);
     }
 

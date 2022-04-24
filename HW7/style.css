@@ -1,5 +1,6 @@
 .root {
     --bg-image: url("source/cat1.png");
+    --bg-poo: url('');
     --hungry: 10%;
     --energy: 100%;
     --wc: 0%;
@@ -10,8 +11,16 @@
     width: 150px;
     height: 150px;
     background: var(--bg-image) center/80% auto no-repeat;
+    position: relative;
 }
-
+.cat_poo {
+    width: 50px;
+    height: 150px;
+    position: absolute;
+    right: -40px;
+    bottom: 10px;
+    background: var(--bg-poo) bottom/100% auto no-repeat;
+}
 .indicators div{
     height: 30px;
     width: 250px;
