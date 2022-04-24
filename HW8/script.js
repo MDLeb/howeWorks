@@ -117,14 +117,27 @@ let item2 = itemDivObj.cloneNode(true);
 item2.querySelector('.main__item_h3').innerText = 'studio';
 item2.querySelector('.main__item_h2').innerText = 'Initially designed to';
 item2.querySelector('.main__item_p').innerText = 'But I must explain to you how all this mistaken idea of denouncing';
-item2.querySelector('.main__item_h3').style.color = '#FFC80A';
-item2.querySelector('.main__item_p').style.color = 'white';
-item2.querySelector('.main__item_h2').style.color = 'white';
-item2.querySelector('.main__item_btn').style.color = 'white';
-item2.style.backgroundColor = '#8F75BE';
 
 function main() {
-    document.body.innerHTML = '<style>body {width: 100vw, height: 95vh} * {box-sizing: border-box}</style>';
+    document.body.innerHTML = `<style>
+                                    body {
+                                        width: 100vw;
+                                        height: 95vh;
+                                    }
+                                    * {
+                                        box-sizing: border-box;
+                                    }
+                                    .main__item:nth-of-type(2) {
+                                        color: white;
+                                        background-color: #8F75BE;
+                                    }
+                                    .main__item:nth-of-type(2) .main__item_h3 {
+                                        color: #FFC80A !important;
+                                    }
+                                    .main__item:nth-of-type(2) .main__item_p {
+                                        color: white !important;
+                                    }
+                                </style>`;
     mainDivObj.append(mainH2Obj, mainSpanObj, item1, item2);
     document.body.append(mainDivObj);
     document.querySelectorAll('.main__item_btn').forEach((btn) => {
