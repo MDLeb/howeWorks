@@ -81,6 +81,7 @@
     border-radius: 20px;
     padding: 10px;
     margin: 0 10px;
+    cursor: pointer;
 }
 .btn:hover {
     filter: drop-shadow(0px 0px 5px #ccc);
@@ -98,4 +99,12 @@
 .btn.clean:disabled,
 .btn.sleep:disabled {
     background-color: #ccc;
+    cursor: auto;
+}
+.btn.eat:disabled:hover,
+.btn.clean:disabled:hover,
+.btn.sleep:disabled:hover {
+    background-color: #ccc;
+    cursor: auto;
+    filter: none;
 }
