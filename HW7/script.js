@@ -25,7 +25,7 @@ let Cat = function(_name = 'Cat', _age = 0) {
     }
 
     this.setName = (_name) => {
-        name = _name;
+        if(_name) name = _name;
     }
 
     this.toSleep = () => {
@@ -140,8 +140,6 @@ let Cat = function(_name = 'Cat', _age = 0) {
     }
 }
 
-let myCat = new Cat("Barsik", 2);
-
 const Eat = () => {
     myCat.toEat();
     myCat.checkControls();
@@ -156,11 +154,19 @@ const Clean = () => {
     myCat.checkControls();
 
 }
+let myCat = new Cat();
 
-document.querySelector('.cat__info_name').innerText = `Name: ${myCat.getName()}`;
-document.querySelector('.cat__info_age').innerText = `Age: ${myCat.getAge()}`;
+const main = () => {
+    myCat.setName(prompt('Enter cat`s name'));
+    myCat.setAge(prompt('Enter cat`s age'));
 
-document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/cat.png")');
+    document.querySelector('.cat__info_name').innerText = `Name: ${myCat.getName()}`;
+    document.querySelector('.cat__info_age').innerText = `Age: ${myCat.getAge()}`;
 
-myCat.live();
+    document.querySelector('.cat').style.setProperty('--bg-image', 'url("source/cat.png")');
+
+    myCat.live();
+}
+
+main();
 
