@@ -32,8 +32,6 @@ button:focus {
     justify-content: space-around;
     margin-bottom: 30px;
 }
-.todo-list__items {
-}
 .todo-item {
     width: 75%;
     margin: 10px auto;
@@ -45,14 +43,8 @@ button:focus {
 .todo-item:nth-child(odd) {
     background-color: #ccc;
 }
-.text {
-}
 .text.line-through {
     text-decoration: line-through;
-}
-.id {
-}
-.checkbox {
 }
 .btn {
    padding: 10px;

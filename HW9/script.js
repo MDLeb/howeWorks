@@ -41,13 +41,15 @@ let List = function() {
 
 const checkList = function() {
     let message;
-    if(!document.querySelectorAll('.todo-item').length){
+    if(!document.querySelectorAll('.todo-item').length && !document.querySelector('.message')){
         message = document.createElement('span');
         message.classList.add('message');
         message.innerText = "There is nothing to do :)";
         document.querySelector('.todo-list__items').append(message);
     }
-    else if(document.querySelector('.message')) document.querySelector('.message').remove();
+    else if(document.querySelector('.message') && document.querySelectorAll('.todo-item').length){
+        document.querySelector('.message').remove();
+    }
 }
 
 const addItem = function() { //открывает инпут
