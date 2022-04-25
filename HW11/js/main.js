@@ -14,5 +14,14 @@ application.add({
     phone:'+375 33 777 11 11',
 })
 
+for(let i = 0; i < 50; i++) {
+    application.add({
+        name:`${i}name`,
+        email:`${i}name@mail.ru`,
+        address:'Moscow',
+        phone:`${i+1}${i+3}${i+10}${i+11}`,
+    })
+}
+
 application.createApp();
 application.showContacts();
