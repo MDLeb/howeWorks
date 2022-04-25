@@ -41,7 +41,14 @@ class ContactsApp extends Contacts{
 
         let searchField = this.createElem('div', 'contacts__search');
         let searchInput = this.createElem('input', 'contacts__search_input');
+        searchInput.addEventListener('keyup', (event) => {
+            this.showContacts(event.target.value);
+        })
+        
         let searchBtn = this.createElem('button', ['contacts__search_btn', 'btn']);
+        searchBtn.addEventListener('click', (event) => {
+            this.showContacts(event.target.parentNode.querySelector('.contacts__search_input').value);
+        })
         searchField.append(searchInput, searchBtn);
 
         //----------------------------------------------------------
@@ -115,7 +122,7 @@ class ContactsApp extends Contacts{
         document.body.append(this.#container);
     }
     //добавить валидацию полей
-    //добавить поиск по имени
+    //добавить сортировку по алфавиту
 
     onSave = () => {
         let data = {
@@ -140,9 +147,18 @@ class ContactsApp extends Contacts{
         //а если оставить, перезаписывает нулевой элемент 
     }
 
-    showContacts = () => {
+    showContacts = (query = false) => {
         document.querySelectorAll('.item-field').forEach((elem) => elem.remove());
-        for(let user in this.get) {
+        let contactsList = {};
+        if(!query) contactsList = this.get;
+        else{
+            //contactsList = 
+            for(let user in this.get) {
+                if(this.get[user].get.name.toLowerCase().includes(query.toLowerCase()))
+                contactsList[user] = this.get[user];
+            }
+        }
+        for(let user in contactsList) {
             let item = document.querySelector('#item-field').content.cloneNode(true);
             item.querySelector('.item_name').innerText = this.get[user].get['name'];
             item.querySelector('.item_id').value = this.get[user].get['id'];
@@ -177,6 +193,8 @@ class ContactsApp extends Contacts{
         });
         this.#contactForm.querySelector('.contact-form__id').value = user.get[`id`];
     }
+
+
 
 }
 
