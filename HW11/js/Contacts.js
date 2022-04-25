@@ -23,7 +23,7 @@ class Contacts {
         user.setID(this.#currentID);
         this.#data.push(user);
         this.#currentID++;
-        return user.get.id;
+        return user.get['id'];
     }
 
     edit = (id, obj) => {
@@ -37,7 +37,7 @@ class Contacts {
     }
 
     getById(id) {
-        
+
     }
 
     get get() {

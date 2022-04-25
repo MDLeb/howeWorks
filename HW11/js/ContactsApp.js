@@ -5,7 +5,7 @@
 // приложения внутри главного контейнера. Предусмотрите форму с полями и кнопками для
 // добавления и редактирования контактов. Дизайн может быть любым, но адаптивным к
 // мобильным устройствам.
-// 3. Методы onAdd(), onEdit() и onRemove() – должны срабатывать по клику по соотв. кнопкам в
+// 3. Методы onSave(), onEdit() и onRemove() – должны срабатывать по клику по соотв. кнопкам в
 // интерфейсе для добавления/редактирования/удаления контакта. Важно использование
 // методов от «Contacts» при соотв. действиях.
 // 4. Метод get() - для получения и обновления списка контактов в соотв. контейнере вашего
@@ -66,13 +66,19 @@ class ContactsApp extends Contacts{
             this.#contactForm.append(contactField);
             this.#contactFormFields[elem] = this.#contactForm.querySelector(`#contact-form__field_${elem}`);
         });
+        let contactIdField = this.createElem('input', 'contact-form__id');
+        contactIdField.setAttribute('hidden', '');
+        this.#contactForm.append(contactIdField);
 
         let saveBtn = this.createElem('button', ['contact-form__save_btn', 'btn']);
         saveBtn.innerText = 'save';
-        saveBtn.addEventListener('click', (event) => {this.onAdd();event.target.parentNode.classList.toggle('active')});
+        saveBtn.addEventListener('click', (event) => {this.onSave();event.target.parentNode.classList.toggle('active')});
 
         let exitBtn = this.createElem('button', ['contact-form__exit_btn', 'btn']);
-        exitBtn.addEventListener('click', (event) => {event.target.parentNode.classList.toggle('active')});
+        exitBtn.addEventListener('click', (event) => {
+            event.target.parentNode.classList.toggle('active');
+            this.showContacts();
+        });
 
         this.#contactForm.append(saveBtn, exitBtn);
 
@@ -86,17 +92,30 @@ class ContactsApp extends Contacts{
                                            <span class="contact-item__field_${elem}_value contact-item__field_value"></span>`;
              this.#contactItem.append(contactItemField);
         });
+        let contactItemId = this.createElem('input', "contact-item__field_id");
+        contactItemId.setAttribute('type', 'text');
+        //contactItemId.setAttribute('hidden', '');
+
+
+        this.#contactItem.append(contactItemId);
         let itemExitBtn = exitBtn.cloneNode(true);
         let editBtn = this.createElem('button', ['contact-item__edit_btn', 'btn']);
-        itemExitBtn.addEventListener('click', (event) => {event.target.parentNode.classList.toggle('active')});
 
+        editBtn.addEventListener('click', (event) => {
+            this.editSelectedContact(event.target.parentNode.querySelector('.contact-item__field_id').value);
+        });
+
+        itemExitBtn.addEventListener('click', (event) => {
+            event.target.parentNode.classList.toggle('active');
+            this.showContacts();
+        });
         this.#contactItem.append(itemExitBtn, editBtn);
         //--------------------------------------------------------------
         this.#container.append(name, addBtn, searchField, itemField, this.#contactForm, this.#contactItem, this.#allContactsList);
         document.body.append(this.#container);
     }
 
-    onAdd = () => {
+    onSave = () => {
         let data = {
             name: this.#contactFormFields['name'].value,
             email: this.#contactFormFields['email'].value,
@@ -106,8 +125,15 @@ class ContactsApp extends Contacts{
         for(let key in this.#contactFormFields) {
             this.#contactFormFields[key].value = null;
         }
-        let addedUserID = this.add(data);
-        this.showContacts();
+        let currentUserID = this.#contactForm.querySelector('.contact-form__id').value;
+        console.log(currentUserID == true);
+        if(!currentUserID){
+            console.log("++");
+            currentUserID = this.add(data);
+        }else{
+            this.edit(currentUserID, data);
+        }
+        this.showSelectedContact(currentUserID);
     }
 
     showContacts = () => {
@@ -131,6 +157,21 @@ class ContactsApp extends Contacts{
         ['name', 'email', 'address', 'phone'].forEach((elem) => {
             this.#contactItem.querySelector(`.contact-item__field_${elem}_value`).innerText = user.get[`${elem}`];
         });
+        this.#contactItem.querySelector('.contact-item__field_id').value = id;
+    }
+
+    editSelectedContact = (id) => {
+        //открыть форму и заполнить поля значениями из юзера по ид
+        //модалку с контактом закрыть
+        //потом сохраняем и закрываем форму
+        //и опять открываем модалку с контактом
+        let user = this.get[id];
+        this.#contactItem.classList.toggle('active');
+        this.#contactForm.classList.toggle('active');
+        ['name', 'email', 'address', 'phone'].forEach((elem) => {
+            this.#contactForm.querySelector(`#contact-form__field_${elem}`).value = user.get[`${elem}`];
+        });
+        this.#contactForm.querySelector('.contact-form__id').value = user.get[`id`];
     }
 
 }
