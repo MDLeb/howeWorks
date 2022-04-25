@@ -13,7 +13,10 @@
 
 class ContactsApp extends Contacts{
     #container;
-    #contactForm;
+    #contactForm;//модалка для создания контакта
+    #contactFormFields = {};//поля ввода
+    #contactItem;//модалка для открытия контакта
+    #allContactsList;
 
     createElem = (tagName, className) => {
         let elem = document.createElement(tagName);
@@ -41,10 +44,19 @@ class ContactsApp extends Contacts{
         let searchBtn = this.createElem('button', ['contacts__search_btn', 'btn']);
         searchField.append(searchInput, searchBtn);
 
-        let itemField = document.createElement('template');
+        //----------------------------------------------------------
+
+        this.#allContactsList = this.createElem('div', 'contacts__list');
+        
+        let itemField = document.createElement('template');//template for each contact
         itemField.setAttribute('id', 'item-field');
-        let itemName = this.createElem('h3', 'item_name');
-        let itemOpenBtn = this.createElem('button', 'item_open-btn');
+        itemField.innerHTML = `<div class="item-field">
+                                    <h3 class="item_name"></h3>
+                                    <input hidden type="text" class="item_id">
+                                    <button class="item_open-btn btn">open</button>
+                                </div>`;
+        
+        //----------------------------------------------------------
 
         this.#contactForm = this.createElem('div', 'contact-form');
         
@@ -52,23 +64,73 @@ class ContactsApp extends Contacts{
             let contactField = this.createElem('div', 'contact-form__field');
             contactField.innerHTML = `<span class="contact-form__field_name">${elem}</span><input type="text" id="contact-form__field_${elem}">`;
             this.#contactForm.append(contactField);
+            this.#contactFormFields[elem] = this.#contactForm.querySelector(`#contact-form__field_${elem}`);
         });
 
         let saveBtn = this.createElem('button', ['contact-form__save_btn', 'btn']);
         saveBtn.innerText = 'save';
-        saveBtn.addEventListener('click', this.onAdd);
+        saveBtn.addEventListener('click', (event) => {this.onAdd();event.target.parentNode.classList.toggle('active')});
 
         let exitBtn = this.createElem('button', ['contact-form__exit_btn', 'btn']);
-        exitBtn.addEventListener('click', () => {this.#contactForm.classList.toggle('active')});
+        exitBtn.addEventListener('click', (event) => {event.target.parentNode.classList.toggle('active')});
 
         this.#contactForm.append(saveBtn, exitBtn);
 
-        this.#container.append(name, addBtn, searchField, itemField, this.#contactForm);
+        //-------------------------------------------------------------
+
+        this.#contactItem = this.createElem('div', 'contact-item');
+        
+        let nameContactItem = this.createElem('h3', 'contact-item__title');
+        ['name', 'email', 'address', 'phone'].forEach((elem) => {
+             let contactItemField = this.createElem('div', 'contact-item__field');
+             contactItemField.innerHTML = `<span class="contact-item__field_name">${elem}</span>
+                                           <span class="contact-item__field_name_value"></span>`;
+             this.#contactItem.append(contactItemField);
+        });
+        let itemExitBtn = exitBtn.cloneNode(true);
+        itemExitBtn.addEventListener('click', (event) => {event.target.parentNode.classList.toggle('active')});
+
+        this.#contactItem.append(nameContactItem, itemExitBtn);
+        //--------------------------------------------------------------
+        this.#container.append(name, addBtn, searchField, itemField, this.#contactForm, this.#contactItem, this.#allContactsList);
         document.body.append(this.#container);
     }
 
     onAdd = () => {
-        console.log('++');
+        let data = {
+            name: this.#contactFormFields['name'].value,
+            email: this.#contactFormFields['email'].value,
+            address: this.#contactFormFields['address'].value,
+            phone: this.#contactFormFields['phone'].value,
+        }
+        for(let key in this.#contactFormFields) {
+            this.#contactFormFields[key].value = null;
+        }
+        let addedUserID = this.add(data);
+        this.showContacts();
+    }
+
+    showContacts = () => {
+        document.querySelectorAll('.item-field').forEach((elem) => elem.remove());
+        for(let user in this.get) {
+            let item = document.querySelector('#item-field').content.cloneNode(true);
+            item.querySelector('.item_name').innerText = this.get[user].get['name'];
+            item.querySelector('.item_id').value = this.get[user].get['id'];
+            this.#allContactsList.append(item);
+        }
+        document.querySelectorAll('.item_open-btn').forEach((elem) => {
+            elem.addEventListener('click', (event) => {
+                this.showSelectedContact(event.target.parentNode.querySelector('.item_id').value);
+            })
+        });
+    }
+
+    showSelectedContact = (id) => {
+        let user = this.get[id];
+        this.#contactItem.classList.toggle('active');
+        this.#contactItem.querySelector('.contact-item__field_name_value').innerText = user.get['name'];
+
     }
 
 }
+

@@ -83,7 +83,8 @@ body {
 .contacts__search_btn:hover {
    background-size: 35% auto;
 }
-.contact-form {
+.contact-form,
+.contact-item {
     position: absolute;
     display: none;
     flex-direction: column;
@@ -94,9 +95,11 @@ body {
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 0.96);
+    z-index: 2;
 }
-.contact-form.active {
+.contact-form.active,
+.contact-item.active {
     display: flex;
 }
 .contact-form__field {
@@ -137,4 +140,21 @@ body {
     font-size: 16px;
     letter-spacing: 5px;
     border-radius: 30px;
+}
+.item-field {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+.item_name {
+
+}
+.item_open-btn {
+    cursor: pointer;
+}
+.item_open-btn:hover {
+    text-decoration: underline;
+}
+.contact-item__title {
+
 }

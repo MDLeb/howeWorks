@@ -15,7 +15,7 @@ class Contacts {
     #currentID = 0;
 
     constructor() {
-        
+
     }
 
     add = (obj) => {
@@ -23,6 +23,7 @@ class Contacts {
         user.setID(this.#currentID);
         this.#data.push(user);
         this.#currentID++;
+        return user.get.id;
     }
 
     edit = (id, obj) => {
@@ -35,6 +36,10 @@ class Contacts {
         this.#data.splice(indexOf(user), 1);
     }
 
+    getById(id) {
+        
+    }
+
     get get() {
         let result = {};
         this.#data.forEach((elem, index) => {
@@ -43,28 +48,6 @@ class Contacts {
         return result;
     }
 }
-
-let contacts = new Contacts();
-contacts.add({
-    id:1235,
-    name: 'Anton',
-    address: 'Minsk',
-    phone: '123456',
-});
-
-contacts.add({
-    id:11,
-    name: 'Sanya',
-    address: 'Minsk',
-    phone: '999',
-})
-
-console.log(contacts.get[1].get)
-
-contacts.edit(1, {
-    name: 'Alexandr Vasilevich',
-})
-console.log(contacts.get[1].get)
 
 
 
