@@ -84,7 +84,7 @@ class ContactsApp extends Contacts{
         ['name', 'email', 'address', 'phone'].forEach((elem) => {
              let contactItemField = this.createElem('div', 'contact-item__field');
              contactItemField.innerHTML = `<span class="contact-item__field_name">${elem}</span>
-                                           <span class="contact-item__field_name_value"></span>`;
+                                           <span class="contact-item__field_${elem}_value"></span>`;
              this.#contactItem.append(contactItemField);
         });
         let itemExitBtn = exitBtn.cloneNode(true);
@@ -128,8 +128,9 @@ class ContactsApp extends Contacts{
     showSelectedContact = (id) => {
         let user = this.get[id];
         this.#contactItem.classList.toggle('active');
-        this.#contactItem.querySelector('.contact-item__field_name_value').innerText = user.get['name'];
-
+        ['name', 'email', 'address', 'phone'].forEach((elem) => {
+            this.#contactItem.querySelector(`.contact-item__field_${elem}_value`).innerText = user.get[`${elem}`];
+        });
     }
 
 }
