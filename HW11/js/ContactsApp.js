@@ -80,17 +80,17 @@ class ContactsApp extends Contacts{
 
         this.#contactItem = this.createElem('div', 'contact-item');
         
-        let nameContactItem = this.createElem('h3', 'contact-item__title');
         ['name', 'email', 'address', 'phone'].forEach((elem) => {
              let contactItemField = this.createElem('div', 'contact-item__field');
              contactItemField.innerHTML = `<span class="contact-item__field_name">${elem}</span>
-                                           <span class="contact-item__field_${elem}_value"></span>`;
+                                           <span class="contact-item__field_${elem}_value contact-item__field_value"></span>`;
              this.#contactItem.append(contactItemField);
         });
         let itemExitBtn = exitBtn.cloneNode(true);
+        let editBtn = this.createElem('button', ['contact-item__edit_btn', 'btn']);
         itemExitBtn.addEventListener('click', (event) => {event.target.parentNode.classList.toggle('active')});
 
-        this.#contactItem.append(nameContactItem, itemExitBtn);
+        this.#contactItem.append(itemExitBtn, editBtn);
         //--------------------------------------------------------------
         this.#container.append(name, addBtn, searchField, itemField, this.#contactForm, this.#contactItem, this.#allContactsList);
         document.body.append(this.#container);

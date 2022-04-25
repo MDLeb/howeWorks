@@ -26,7 +26,8 @@ body {
     position: relative;
 }
 .contacts_add-btn,
-.contact-form__exit_btn {
+.contact-form__exit_btn,
+.contact-item__edit_btn {
     position: absolute;
     top: 18px;
     right: 4%;
@@ -36,11 +37,14 @@ body {
     border-radius: 50%;
     cursor: pointer;
 }
-.contacts_add-btn:hover {
+.contacts_add-btn:hover,
+.contact-form__exit_btn:hover,
+.contact-item__edit_btn:hover {
    filter: brightness(105%);
 }
 .contacts_add-btn::after,
-.contact-form__exit_btn::after {
+.contact-form__exit_btn::after,
+.contact-item__edit_btn::after {
     content: '+';
     position: absolute;
     display: block;
@@ -106,7 +110,8 @@ body {
 .contact-item__field {
     width: 100%;
     display: flex;
-    height: 30px;
+    height: 50px;
+    align-items: center;
 }
 .contact-form__field>input {
     flex: 3;
@@ -146,10 +151,8 @@ body {
 .item-field {
     display: flex;
     justify-content: space-between;
-    padding: 10px 20px;
-}
-.item_name {
-
+    padding: 20px 20px;
+    height: 50px;
 }
 .item_open-btn {
     cursor: pointer;
@@ -157,6 +160,22 @@ body {
 .item_open-btn:hover {
     text-decoration: underline;
 }
-.contact-item__title {
+.contact-item {
 
+}
+.contact-item__field {
+
+}
+.contact-item__field_value{
+    color: red;
+    flex: 2;
+    font-size: 24px;
+    text-align: left;
+}
+.contact-item__edit_btn {
+    right: 12%;
+}
+.contact-item__edit_btn::after {
+    content: '';
+    background: url('../source/ico_edit.png') center/58% auto no-repeat;
 }
