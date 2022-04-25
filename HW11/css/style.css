@@ -164,6 +164,17 @@ body {
 .contacts__list {
     height: 80%;
     overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+::-webkit-scrollbar {
+    background-color: rgb(226, 223, 223);
+    width: 8px;
+    border-radius: 5px;
+
+}
+::-webkit-scrollbar-thumb {
+    background-color: yellowgreen;
+    border-radius: 5px;
 }
 .contact-item {
 
