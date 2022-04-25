@@ -94,7 +94,7 @@ class ContactsApp extends Contacts{
         });
         let contactItemId = this.createElem('input', "contact-item__field_id");
         contactItemId.setAttribute('type', 'text');
-        //contactItemId.setAttribute('hidden', '');
+        contactItemId.setAttribute('hidden', '');
 
 
         this.#contactItem.append(contactItemId);
@@ -114,6 +114,8 @@ class ContactsApp extends Contacts{
         this.#container.append(name, addBtn, searchField, itemField, this.#contactForm, this.#contactItem, this.#allContactsList);
         document.body.append(this.#container);
     }
+    //добавить валидацию полей
+    //добавить поиск по имени
 
     onSave = () => {
         let data = {
@@ -134,6 +136,8 @@ class ContactsApp extends Contacts{
             this.edit(currentUserID, data);
         }
         this.showSelectedContact(currentUserID);
+        currentUserID = null;//???если убрать остается значение, и при содании заполняются поля. 
+        //а если оставить, перезаписывает нулевой элемент 
     }
 
     showContacts = () => {
