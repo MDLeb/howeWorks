@@ -13,7 +13,7 @@ body {
     max-width: 600px;
     height: 100vh;
     width: 100%;
-    margin: 20px auto;
+    margin: 0 auto;
     padding: 20px;
 }
 .contacts__title {
@@ -115,9 +115,8 @@ body {
     position: absolute;
     display: none;
     flex-direction: column;
-    justify-content: space-evenly;
     align-items: center;
-    padding: 10%;
+    padding: 18% 10%;
     top:0;
     left: 0;
     height: 100%;
@@ -133,6 +132,7 @@ body {
 .contact-item__field {
     width: 100%;
     display: flex;
+    margin: 20px 0;
     height: 50px;
     align-items: center;
 }
@@ -159,6 +159,7 @@ body {
 
 .contact-form__save_btn {
     padding: 10px 20px;
+    margin-top: 30px;
     text-transform: uppercase;
     background-color: yellowgreen;
     color: white;
@@ -188,7 +189,8 @@ body {
     text-decoration: underline;
 }
 .contacts__list {
-    height: 80%;
+    max-height: 85%;
+    height: 100%;
     overflow-y: scroll;
     scroll-behavior: smooth;
     border-radius: 5px;
@@ -215,7 +217,59 @@ body {
     font-size: 24px;
     text-align: left;
 }
-.item_id {
-    height: 30px;
-    width: 30px;
+/* 
+@media (max-width:768px) {
+    .contacts {
+        width: 90vw;
+        height: 100vh;
+    }
+    .contacts__list {
+        height: 80%;
+    }
+    .contacts_add-btn {
+        right: 12%;
+    }
+    .contact-form,
+    .contact-item {
+        padding: 10%;
+        height: 100%;
+        width: 100%;
+    }
+    .contact-form__exit_btn {
+        right: 12%;
+    }
+    .contact-item__edit_btn {
+        right: 22%;
+    }
+    .contact-item__remove_btn {
+        right: 32%;
+    }
 }
+@media (max-width:426px) {
+   
+    .contacts__list {
+        height: 75%;
+        width: 100%;
+    }
+    .contacts__search_input {
+        font-size: 14px;
+    }
+    
+    .contact-form__field,
+    .contact-item__field {
+        width: 100%;
+        margin: 20px 0;
+        height: 50px;
+    }
+    .contact-form__field>input {
+        flex: 3;
+        height: 50px;
+        padding: 5px 15px;
+        font-size: 12px;
+    }
+} 
+@media (max-width:320px) {
+    .contacts__search_input {
+        font-size: 10px;
+    }
+} */
