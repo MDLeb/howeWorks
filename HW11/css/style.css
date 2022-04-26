@@ -27,7 +27,8 @@ body {
 }
 .contacts_add-btn,
 .contact-form__exit_btn,
-.contact-item__edit_btn {
+.contact-item__edit_btn,
+.contact-item__remove_btn {
     position: absolute;
     top: 18px;
     right: 4%;
@@ -39,12 +40,14 @@ body {
 }
 .contacts_add-btn:hover,
 .contact-form__exit_btn:hover,
-.contact-item__edit_btn:hover {
+.contact-item__edit_btn:hover,
+.contact-item__remove_btn:hover {
    filter: brightness(105%);
 }
 .contacts_add-btn::after,
 .contact-form__exit_btn::after,
-.contact-item__edit_btn::after {
+.contact-item__edit_btn::after,
+.contact-item__remove_btn::after {
     content: '+';
     position: absolute;
     display: block;
@@ -55,6 +58,25 @@ body {
     color: white;
     line-height: 32px;
     font-size: 40px;
+}
+.contact-item__edit_btn {
+    right: 12%;
+}
+.contact-item__edit_btn::after {
+    content: '';
+    background: url('../source/ico_edit.png') center/58% auto no-repeat;
+}
+.contact-item__remove_btn {
+    right: 20%;
+    background-color: salmon;
+}
+.contact-item__remove_btn::after {
+    content: '';
+    background: url('../source/ico_remove.png') center/auto 60% no-repeat;
+}
+.contact-form__exit_btn {
+    background-color: salmon;
+    transform: rotate(45deg);
 }
 .contacts__search {
     position: relative;
@@ -135,10 +157,6 @@ body {
     text-transform: capitalize;
 }
 
-.contact-form__exit_btn {
-    background-color: salmon;
-    transform: rotate(45deg);
-}
 .contact-form__save_btn {
     padding: 10px 20px;
     text-transform: uppercase;
@@ -180,7 +198,6 @@ body {
     background-color: rgb(226, 223, 223);
     width: 8px;
     border-radius: 5px;
-
 }
 ::-webkit-scrollbar-thumb {
     background-color: yellowgreen;
@@ -198,10 +215,7 @@ body {
     font-size: 24px;
     text-align: left;
 }
-.contact-item__edit_btn {
-    right: 12%;
-}
-.contact-item__edit_btn::after {
-    content: '';
-    background: url('../source/ico_edit.png') center/58% auto no-repeat;
+.item_id {
+    height: 30px;
+    width: 30px;
 }

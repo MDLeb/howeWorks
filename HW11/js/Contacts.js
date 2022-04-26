@@ -32,18 +32,15 @@ class Contacts {
     }
 
     remove = (id) => {
-        let user = this.#data.find((elem) => elem.id == id);
-        this.#data.splice(indexOf(user), 1);
-    }
-
-    getById(id) {
-
+        let user = this.#data.find((elem) => elem.get['id'] == id);
+        console.log(user);
+        this.#data.splice(this.#data.indexOf(user), 1);
     }
 
     get get() {
         let result = {};
-        this.#data.forEach((elem, index) => {
-            result[index] = elem;
+        this.#data.forEach((elem) => {
+            result[elem.get['id']] = elem;
         });
         return result;
     }

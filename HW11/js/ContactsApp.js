@@ -83,7 +83,7 @@ class ContactsApp extends Contacts{
         this.#contactForm.append(contactIdField);
         this.#contactForm.querySelectorAll('.contact-form__field_value').forEach((elem) => {
             elem.addEventListener('keyup', this.validFields);
-            // elem.addEventListener('change', this.validFields);
+            //elem.addEventListener('change', this.validFields);
         });
 
         let saveBtn = this.createElem('button', ['contact-form__save_btn', 'btn']);
@@ -119,10 +119,20 @@ class ContactsApp extends Contacts{
         contactItemId.setAttribute('type', 'text');
         contactItemId.setAttribute('hidden', '');
 
-
         this.#contactItem.append(contactItemId);
         let itemExitBtn = exitBtn.cloneNode(true);
         let editBtn = this.createElem('button', ['contact-item__edit_btn', 'btn']);
+        let removeBtn = this.createElem('button', ['contact-item__remove_btn', 'btn']);
+
+        removeBtn.addEventListener('click', (event) => {
+            let id = event.target.parentNode.querySelector('.contact-item__field_id').value;
+            event.target.parentNode.classList.toggle('active');
+            this.#contactItem.querySelectorAll('.contact-item__field_value').forEach((elem) => {
+                elem.innerHTML = '';
+            });          
+            this.#contactForm.querySelector('.contact-form__id').value = null;
+            this.onRemove(id);
+        });
 
         editBtn.addEventListener('click', (event) => {
             this.editSelectedContact(event.target.parentNode.querySelector('.contact-item__field_id').value);
@@ -132,7 +142,7 @@ class ContactsApp extends Contacts{
             event.target.parentNode.classList.toggle('active');
             this.showContacts();
         });
-        this.#contactItem.append(itemExitBtn, editBtn);
+        this.#contactItem.append(itemExitBtn, editBtn, removeBtn);
         //--------------------------------------------------------------
         this.#container.append(name, addBtn, searchField, itemField, this.#contactForm, this.#contactItem, this.#allContactsList);
         document.body.append(this.#container);
@@ -149,16 +159,20 @@ class ContactsApp extends Contacts{
             this.#contactFormFields[key].value = null;
         }
         let currentUserID = this.#contactForm.querySelector('.contact-form__id').value;
-        console.log(currentUserID == true);
         if(!currentUserID){
-            console.log("++");
             currentUserID = this.add(data);
         }else{
             this.edit(currentUserID, data);
         }
         this.showSelectedContact(currentUserID);
-        currentUserID = null;//???если убрать остается значение, и при содании заполняются поля. 
-        //а если оставить, перезаписывает нулевой элемент 
+        currentUserID = null;
+    }
+    onRemove = (id) => {
+        let user = this.get[id];
+        if(confirm(`Do you want to remove contact ${user.get['name']}`)){
+            this.remove(id);
+            this.showContacts();
+        }
     }
     showSelectedContact = (id) => {
         let user = this.get[id];
@@ -166,11 +180,12 @@ class ContactsApp extends Contacts{
         ['name', 'email', 'address', 'phone'].forEach((elem) => {
             this.#contactItem.querySelector(`.contact-item__field_${elem}_value`).innerText = user.get[`${elem}`];
         });
+        this.#contactItem.querySelector('.contact-item__field_id').value = null;
         this.#contactItem.querySelector('.contact-item__field_id').value = id;
     }
 
     editSelectedContact = (id) => {
-        let user = this.get[id];
+        let user = this.get[+id];
         this.#contactItem.classList.toggle('active');
         this.#contactForm.classList.toggle('active');
         ['name', 'email', 'address', 'phone'].forEach((elem) => {
@@ -210,20 +225,18 @@ class ContactsApp extends Contacts{
         });
         document.querySelectorAll('.item_open-btn').forEach((elem) => {
             elem.addEventListener('click', (event) => {
-                this.showSelectedContact(event.target.parentNode.querySelector('.item_id').value);
+                let id = +event.target.parentNode.querySelector('.item_id').value;
+                this.showSelectedContact(id);
             })
         });
     }
 
     validFields = () => {
-        console.log('чекаем');
         let regExpPhone = /^[+]*[0-9 -]{3,18}$/;//+
         let isValid = false;
         let valuePhone = this.#contactForm.querySelector(`#contact-form__field_phone`);
         if(valuePhone){
-            console.log('+');
             if(regExpPhone.test(valuePhone.value)){
-                console.log("++");
                 isValid = true;
                 this.#contactForm.querySelector('.contact-form__save_btn').removeAttribute('disabled');
             }

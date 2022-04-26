@@ -21,13 +21,19 @@ application.add({
     phone:'+375 33 777 11 11',
 })
 
+application.add({
+    name:'Ann',
+    email:'ann@mail.ru',
+    address:'Monsk',
+    phone:'+375 33 777 11 11',
+})
 for(let i = 0; i < 20; i++) {
     application.add({
         name:`${String.fromCharCode(i+64)}${String.fromCharCode(i+67).toLocaleLowerCase()}${String.fromCharCode(i+65).toLocaleLowerCase()}${String.fromCharCode(i+66).toLocaleLowerCase()}`,
         email:`${i}name@mail.ru`,
         address:'Moscow',
         phone:`${i+100}${i+50}${i+60}`,
-    })
+    });
 }
 
 application.createApp();
