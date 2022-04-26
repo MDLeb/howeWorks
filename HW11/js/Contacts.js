@@ -33,7 +33,6 @@ class Contacts {
 
     remove = (id) => {
         let user = this.#data.find((elem) => elem.get['id'] == id);
-        console.log(user);
         this.#data.splice(this.#data.indexOf(user), 1);
     }
 
