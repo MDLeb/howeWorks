@@ -14,12 +14,12 @@ application.add({
     phone:'+375 33 777 11 11',
 })
 
-for(let i = 0; i < 50; i++) {
+for(let i = 0; i < 20; i++) {
     application.add({
-        name:`${i}name`,
+        name:`${String.fromCharCode(i+64)}${String.fromCharCode(i+67).toLocaleLowerCase()}${String.fromCharCode(i+65).toLocaleLowerCase()}${String.fromCharCode(i+66).toLocaleLowerCase()}`,
         email:`${i}name@mail.ru`,
         address:'Moscow',
-        phone:`${i+1}${i+3}${i+10}${i+11}`,
+        phone:`${i+100}${i+50}${i+60}`,
     })
 }
 
