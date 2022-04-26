@@ -44,6 +44,7 @@ class ContactsApp extends Contacts{
 
         let searchField = this.createElem('div', 'contacts__search');
         let searchInput = this.createElem('input', 'contacts__search_input');
+        searchInput.setAttribute('placeholder','Enter name or phone number for search :)')
         searchInput.addEventListener('keyup', (event) => {
             this.showContacts(event.target.value);
         })
@@ -190,9 +191,10 @@ class ContactsApp extends Contacts{
                 contactsList.push(this.get[user]);
             }
         }else{
-            //contactsList = 
             for(let user in this.get) {
                 if(this.get[user].get.name.toLowerCase().includes(query.toLowerCase()))
+                contactsList.push(this.get[user]);
+                if(this.get[user].get.phone.toLowerCase().includes(query.toLowerCase()))
                 contactsList.push(this.get[user]);
             }
         }
