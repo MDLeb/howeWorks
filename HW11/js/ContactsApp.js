@@ -149,21 +149,36 @@ class ContactsApp extends Contacts{
 
     showContacts = (query = false) => {
         document.querySelectorAll('.item-field').forEach((elem) => elem.remove());
-        let contactsList = {};
-        if(!query) contactsList = this.get;
-        else{
+        let contactsList = [];
+        function SortArray(x, y){
+            return x.get.name.localeCompare(y.get.name);
+        }
+        if(!query){
+            for(let user in this.get) {
+                contactsList.push(this.get[user]);
+            }
+        }else{
             //contactsList = 
             for(let user in this.get) {
                 if(this.get[user].get.name.toLowerCase().includes(query.toLowerCase()))
-                contactsList[user] = this.get[user];
+                contactsList.push(this.get[user]);
             }
         }
-        for(let user in contactsList) {
+
+        // for(let user in contactsList) {
+        //     let item = document.querySelector('#item-field').content.cloneNode(true);
+        //     item.querySelector('.item_name').innerText = this.get[user].get['name'];
+        //     item.querySelector('.item_id').value = this.get[user].get['id'];
+        //     this.#allContactsList.append(item);
+        // }
+        contactsList.sort(SortArray);
+        console.log(contactsList);
+        contactsList.forEach((elem) => {
             let item = document.querySelector('#item-field').content.cloneNode(true);
-            item.querySelector('.item_name').innerText = this.get[user].get['name'];
-            item.querySelector('.item_id').value = this.get[user].get['id'];
+            item.querySelector('.item_name').innerText = elem.get['name'];
+            item.querySelector('.item_id').value = elem.get['id'];
             this.#allContactsList.append(item);
-        }
+        });
         document.querySelectorAll('.item_open-btn').forEach((elem) => {
             elem.addEventListener('click', (event) => {
                 this.showSelectedContact(event.target.parentNode.querySelector('.item_id').value);
