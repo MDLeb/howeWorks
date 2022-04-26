@@ -95,6 +95,10 @@ class ContactsApp extends Contacts{
         let exitBtn = this.createElem('button', ['contact-form__exit_btn', 'btn']);
         exitBtn.addEventListener('click', (event) => {
             event.target.parentNode.classList.toggle('active');
+            for(let key in this.#contactFormFields) {
+                this.#contactFormFields[key].value = null;
+            }
+            this.#contactForm.querySelector('.contact-form__id').value = null;
             this.showContacts();
         });
 
@@ -132,8 +136,6 @@ class ContactsApp extends Contacts{
         this.#container.append(name, addBtn, searchField, itemField, this.#contactForm, this.#contactItem, this.#allContactsList);
         document.body.append(this.#container);
     }
-    //добавить валидацию полей
-    //добавить сортировку по алфавиту
 
     onSave = () => {
         let data = {
@@ -156,6 +158,25 @@ class ContactsApp extends Contacts{
         this.showSelectedContact(currentUserID);
         currentUserID = null;//???если убрать остается значение, и при содании заполняются поля. 
         //а если оставить, перезаписывает нулевой элемент 
+    }
+    showSelectedContact = (id) => {
+        let user = this.get[id];
+        this.#contactItem.classList.toggle('active');
+        ['name', 'email', 'address', 'phone'].forEach((elem) => {
+            this.#contactItem.querySelector(`.contact-item__field_${elem}_value`).innerText = user.get[`${elem}`];
+        });
+        this.#contactItem.querySelector('.contact-item__field_id').value = id;
+    }
+
+    editSelectedContact = (id) => {
+        let user = this.get[id];
+        this.#contactItem.classList.toggle('active');
+        this.#contactForm.classList.toggle('active');
+        ['name', 'email', 'address', 'phone'].forEach((elem) => {
+            this.#contactForm.querySelector(`#contact-form__field_${elem}`).value = user.get[`${elem}`];
+        });
+        this.validFields();
+        this.#contactForm.querySelector('.contact-form__id').value = user.get[`id`];
     }
 
     showContacts = (query = false) => {
@@ -192,37 +213,11 @@ class ContactsApp extends Contacts{
         });
     }
 
-    showSelectedContact = (id) => {
-        let user = this.get[id];
-        this.#contactItem.classList.toggle('active');
-        ['name', 'email', 'address', 'phone'].forEach((elem) => {
-            this.#contactItem.querySelector(`.contact-item__field_${elem}_value`).innerText = user.get[`${elem}`];
-        });
-        this.#contactItem.querySelector('.contact-item__field_id').value = id;
-    }
-
-    editSelectedContact = (id) => {
-        //открыть форму и заполнить поля значениями из юзера по ид
-        //модалку с контактом закрыть
-        //потом сохраняем и закрываем форму
-        //и опять открываем модалку с контактом
-        let user = this.get[id];
-        this.#contactItem.classList.toggle('active');
-        this.#contactForm.classList.toggle('active');
-        this.validFields();
-        ['name', 'email', 'address', 'phone'].forEach((elem) => {
-            this.#contactForm.querySelector(`#contact-form__field_${elem}`).value = user.get[`${elem}`];
-        });
-        this.#contactForm.querySelector('.contact-form__id').value = user.get[`id`];
-    }
-
     validFields = () => {
         console.log('чекаем');
         let regExpPhone = /^[+]*[0-9 -]{3,18}$/;//+
         let isValid = false;
-        let valueName = this.#contactForm.querySelector(`#contact-form__field_name`),
-            valueEmail = this.#contactForm.querySelector(`#contact-form__field_email`),
-            valuePhone = this.#contactForm.querySelector(`#contact-form__field_phone`);
+        let valuePhone = this.#contactForm.querySelector(`#contact-form__field_phone`);
         if(valuePhone){
             console.log('+');
             if(regExpPhone.test(valuePhone.value)){
