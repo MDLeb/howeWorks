@@ -37,7 +37,10 @@ class ContactsApp extends Contacts{
         name.innerText = 'CONTACTS';
         
         let addBtn = this.createElem('button', ['contacts_add-btn', 'btn']);
-        addBtn.addEventListener('click', () => {this.#contactForm.classList.toggle('active')});
+        addBtn.addEventListener('click', () => {
+            this.#contactForm.classList.toggle('active'); 
+            this.validFields();
+        });
 
         let searchField = this.createElem('div', 'contacts__search');
         let searchInput = this.createElem('input', 'contacts__search_input');
@@ -69,17 +72,25 @@ class ContactsApp extends Contacts{
         
         ['name', 'email', 'address', 'phone'].forEach((elem) => {
             let contactField = this.createElem('div', 'contact-form__field');
-            contactField.innerHTML = `<span class="contact-form__field_name">${elem}</span><input type="text" id="contact-form__field_${elem}">`;
+            contactField.innerHTML = `<span class="contact-form__field_name">${elem}</span>
+                                      <input type="text" id="contact-form__field_${elem}" class="contact-form__field_value">`;
             this.#contactForm.append(contactField);
             this.#contactFormFields[elem] = this.#contactForm.querySelector(`#contact-form__field_${elem}`);
         });
         let contactIdField = this.createElem('input', 'contact-form__id');
         contactIdField.setAttribute('hidden', '');
         this.#contactForm.append(contactIdField);
+        this.#contactForm.querySelectorAll('.contact-form__field_value').forEach((elem) => {
+            elem.addEventListener('keyup', this.validFields);
+            // elem.addEventListener('change', this.validFields);
+        });
 
         let saveBtn = this.createElem('button', ['contact-form__save_btn', 'btn']);
         saveBtn.innerText = 'save';
-        saveBtn.addEventListener('click', (event) => {this.onSave();event.target.parentNode.classList.toggle('active')});
+        saveBtn.addEventListener('click', (event) => {
+            this.onSave();
+            event.target.parentNode.classList.toggle('active');
+        });
 
         let exitBtn = this.createElem('button', ['contact-form__exit_btn', 'btn']);
         exitBtn.addEventListener('click', (event) => {
@@ -164,18 +175,13 @@ class ContactsApp extends Contacts{
                 contactsList.push(this.get[user]);
             }
         }
-
-        // for(let user in contactsList) {
-        //     let item = document.querySelector('#item-field').content.cloneNode(true);
-        //     item.querySelector('.item_name').innerText = this.get[user].get['name'];
-        //     item.querySelector('.item_id').value = this.get[user].get['id'];
-        //     this.#allContactsList.append(item);
-        // }
         contactsList.sort(SortArray);
-        console.log(contactsList);
         contactsList.forEach((elem) => {
             let item = document.querySelector('#item-field').content.cloneNode(true);
-            item.querySelector('.item_name').innerText = elem.get['name'];
+            
+            if(elem.get['name'])           
+                item.querySelector('.item_name').innerText = elem.get['name'];
+            else item.querySelector('.item_name').innerText = elem.get['phone'];
             item.querySelector('.item_id').value = elem.get['id'];
             this.#allContactsList.append(item);
         });
@@ -203,12 +209,30 @@ class ContactsApp extends Contacts{
         let user = this.get[id];
         this.#contactItem.classList.toggle('active');
         this.#contactForm.classList.toggle('active');
+        this.validFields();
         ['name', 'email', 'address', 'phone'].forEach((elem) => {
             this.#contactForm.querySelector(`#contact-form__field_${elem}`).value = user.get[`${elem}`];
         });
         this.#contactForm.querySelector('.contact-form__id').value = user.get[`id`];
     }
 
+    validFields = () => {
+        console.log('чекаем');
+        let regExpPhone = /^[+]*[0-9 -]{3,18}$/;//+
+        let isValid = false;
+        let valueName = this.#contactForm.querySelector(`#contact-form__field_name`),
+            valueEmail = this.#contactForm.querySelector(`#contact-form__field_email`),
+            valuePhone = this.#contactForm.querySelector(`#contact-form__field_phone`);
+        if(valuePhone){
+            console.log('+');
+            if(regExpPhone.test(valuePhone.value)){
+                console.log("++");
+                isValid = true;
+                this.#contactForm.querySelector('.contact-form__save_btn').removeAttribute('disabled');
+            }
+        }
+        if (!isValid) this.#contactForm.querySelector('.contact-form__save_btn').setAttribute('disabled', '');
+    }
 
 
 }

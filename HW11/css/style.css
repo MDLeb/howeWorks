@@ -144,10 +144,15 @@ body {
     text-transform: uppercase;
     background-color: yellowgreen;
     color: white;
+    cursor: pointer;
     font-weight: bold;
     font-size: 16px;
     letter-spacing: 5px;
     border-radius: 30px;
+}
+.contact-form__save_btn:disabled {
+    background-color: #ccc;
+    cursor: auto;
 }
 .item-field {
     display: flex;
