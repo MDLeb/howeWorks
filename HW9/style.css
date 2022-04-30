@@ -11,7 +11,7 @@ button:focus {
     outline: 1px dotted grey;
 }
 .wrapper {
-    height: 85vh;
+    height: calc(96vh - 70px);
     padding: 20px;
 }
 .todo-list {
