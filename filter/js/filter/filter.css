@@ -14,7 +14,7 @@
     background-color: #FFF;
     display: block;
     padding: 10px;
-    margin-right: 20px;
+    margin: 0 20px 10px 0;
     cursor: pointer;
 }
 .portfolio__filter li.active {
@@ -40,7 +40,6 @@
 }
 .portfolio__list li img {
     width: 100%;
-    
 }
 .portfolio__list li span {
     font-size: 14px;
@@ -49,4 +48,44 @@
 .portfolio__list li h3 {
     font-size: 16px;
     text-align: left;
+}
+@media (max-width: 768px) {
+    .portfolio,
+    .portfolio__list li h3,
+    .portfolio__list li span {
+        font-size: 14px;
+    }
+}
+@media (max-width: 520px) {
+    .portfolio {
+        width: 100%;
+    }
+    .portfolio__list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .portfolio__filter {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .portfolio__filter li {
+        margin: 0 0 10px 0;
+    }
+}
+@media (max-width: 375px) {
+    
+    .portfolio__list {
+        grid-template-columns: 1fr;
+    }
+    .portfolio__filter {
+        flex-wrap: wrap;
+    }
+    .portfolio__filter li {
+        width: 100%;
+        text-align: center;
+    }
+    .portfolio__list li {
+        grid-template-rows: 4fr 0.5fr 0.5fr;
+
+    }
 }
