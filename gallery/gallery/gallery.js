@@ -26,11 +26,20 @@ const gallery = (gallery) => {
 
     const arrows = Array.from(galleryElem.querySelectorAll('.arrow'));
     let position = 0;
-    let step = galleryElem.offsetWidth/4;
+    let width = galleryElem.offsetWidth; 
+    let step = width/4;
     previewElem.querySelector('.gallery__preview_close').addEventListener('click', closePreview);
     let arrowRight =  arrows.find(elem => elem.classList.contains('arrow_right')),
         arrowLeft =  arrows.find(elem => elem.classList.contains('arrow_left'));
     let max = -step * (galleryItems.length - 4);
+
+   window.addEventListener('resize', () => {
+       width = galleryElem.offsetWidth;
+       step = width/4;
+       position = 0;
+       galleryItemsParent.style.setProperty('--translate', `${position}px`);
+       arrowEnable ();
+   })
 
    const arrowEnable = () => {
         if (position <= max) 
@@ -46,13 +55,16 @@ const gallery = (gallery) => {
        elem.addEventListener('click', () => {
            if(elem.classList.contains('arrow_right')) {
                position += -step;
-               galleryItemsParent.style.setProperty('--translate', `${position}px`);
                arrowEnable();
+               if (position < max) return;
+               galleryItemsParent.style.setProperty('--translate', `${position}px`);
+               
            }
            if(elem.classList.contains('arrow_left')) {
             position += step;
-            galleryItemsParent.style.setProperty('--translate', `${position}px`);
             arrowEnable();
+            if (position > 0) return;
+            galleryItemsParent.style.setProperty('--translate', `${position}px`);
         }
        });
    });

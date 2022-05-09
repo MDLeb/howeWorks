@@ -1,0 +1,120 @@
+:root {
+    --translate: 0px;
+}
+
+.gallery {
+    margin: 20px auto;
+    max-width: 800px;
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery__thumbs {
+    transform: translate(var(--translate), 0);
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    max-height: 200px;
+    width: 100%;
+    transition: transform 2s ease;
+}
+
+.gallery__thumbs li {
+    min-width: 25%;
+    text-align: center;
+}
+.gallery__thumbs li img {
+    object-fit: cover;
+    width: 90%;
+    height: 90%;
+}
+.arrow_right,
+.arrow_left {
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 60px;
+    z-index: 2;
+}
+.arrow_right::after,
+.arrow_left::after {
+    opacity: 0.2;
+    content: '>';
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-size: 200%;
+    color: #ccc;
+    line-height: 150%;
+    text-align: right;
+    font-family: Arial, Helvetica, sans-serif;
+    transform: scaleY(1.8);
+    top: 0;
+    right: 0;
+}
+.arrow_left::after {
+    transform: rotate(180deg) scaleY(1.8);
+}
+.arrow_right {
+    right: 0;
+}
+.arrow_left {
+    left: 0;
+}
+.gallery__preview {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+.gallery__preview img {
+    width: 100%;
+    height: auto;
+}
+.hide {
+    display: none;
+}
+.gallery__preview_close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: block;
+    height: 30px;
+    width: 30px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #ccc;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 45px;
+    line-height: 25px;
+    transform: rotate(45deg);
+}
+.gallery__preview_close:focus {
+    outline: 1px dotted #ccc;
+}
+@media (max-width: 525px) {
+    .arrow_right,
+    .arrow_left {
+        height: 30px;
+        width: 30px;
+    }
+    .arrow_right::after,
+    .arrow_left::after {
+        font-size: 250%;
+        line-height: 75%;
+    }        
+}
+@media (max-width: 400px) {
+    .arrow_right,
+    .arrow_left {
+        top: 50px
+    }   
+}
+@media (max-width: 310px) {
+    .arrow_right,
+    .arrow_left {
+        top: 30px
+    }   
+}
