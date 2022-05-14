@@ -191,7 +191,7 @@ body {
 .contacts__list {
     max-height: 85%;
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
     scroll-behavior: smooth;
     border-radius: 5px;
     background-color: rgb(251, 251, 251);
@@ -205,71 +205,9 @@ body {
     background-color: yellowgreen;
     border-radius: 5px;
 }
-.contact-item {
-
-}
-.contact-item__field {
-
-}
 .contact-item__field_value{
     color: red;
     flex: 2;
     font-size: 24px;
     text-align: left;
 }
-/* 
-@media (max-width:768px) {
-    .contacts {
-        width: 90vw;
-        height: 100vh;
-    }
-    .contacts__list {
-        height: 80%;
-    }
-    .contacts_add-btn {
-        right: 12%;
-    }
-    .contact-form,
-    .contact-item {
-        padding: 10%;
-        height: 100%;
-        width: 100%;
-    }
-    .contact-form__exit_btn {
-        right: 12%;
-    }
-    .contact-item__edit_btn {
-        right: 22%;
-    }
-    .contact-item__remove_btn {
-        right: 32%;
-    }
-}
-@media (max-width:426px) {
-   
-    .contacts__list {
-        height: 75%;
-        width: 100%;
-    }
-    .contacts__search_input {
-        font-size: 14px;
-    }
-    
-    .contact-form__field,
-    .contact-item__field {
-        width: 100%;
-        margin: 20px 0;
-        height: 50px;
-    }
-    .contact-form__field>input {
-        flex: 3;
-        height: 50px;
-        padding: 5px 15px;
-        font-size: 12px;
-    }
-} 
-@media (max-width:320px) {
-    .contacts__search_input {
-        font-size: 10px;
-    }
-} */

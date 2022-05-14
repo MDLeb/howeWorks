@@ -15,19 +15,12 @@ application.add({
 })
 
 application.add({
-    name:'Mom',
-    email:'mom@mail.ru',
-    address:'Monsk',
-    phone:'+375 33 777 11 11',
-})
-
-application.add({
     name:'Ann',
     email:'ann@mail.ru',
-    address:'Monsk',
+    address:'Minsk',
     phone:'+375 33 777 11 11',
 })
-for(let i = 0; i < 20; i++) {
+for(let i = 0; i < 5; i++) {
     application.add({
         name:`${String.fromCharCode(i+64)}${String.fromCharCode(i+67).toLocaleLowerCase()}${String.fromCharCode(i+65).toLocaleLowerCase()}${String.fromCharCode(i+66).toLocaleLowerCase()}`,
         email:`${i}name@mail.ru`,
