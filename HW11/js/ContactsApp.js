@@ -1,16 +1,3 @@
-// При создании объекта на основе этого класса в DOM должен добавляться главный контейнер
-// приложения, например, «<div class=”contacts”></div>». Доступ к контейнеру должен быть
-// через свойство «app» (должен хранить созданный элемент).
-// 2. Также, в конструкторе или через любой метод в классе полностью создайте интерфейс вашего
-// приложения внутри главного контейнера. Предусмотрите форму с полями и кнопками для
-// добавления и редактирования контактов. Дизайн может быть любым, но адаптивным к
-// мобильным устройствам.
-// 3. Методы onSave(), onEdit() и onRemove() – должны срабатывать по клику по соотв. кнопкам в
-// интерфейсе для добавления/редактирования/удаления контакта. Важно использование
-// методов от «Contacts» при соотв. действиях.
-// 4. Метод get() - для получения и обновления списка контактов в соотв. контейнере вашего
-// приложения. Важно сохранить возможности родительского метода.
-
 class ContactsApp extends Contacts{
     #container;
     #contactForm;//модалка для создания контакта
@@ -214,15 +201,30 @@ class ContactsApp extends Contacts{
             }
         }
         contactsList.sort(SortArray);
-        contactsList.forEach((elem) => {
-            let item = document.querySelector('#item-field').content.cloneNode(true);
-            
-            if(elem.get['name'])           
-                item.querySelector('.item_name').innerText = elem.get['name'];
-            else item.querySelector('.item_name').innerText = elem.get['phone'];
-            item.querySelector('.item_id').value = elem.get['id'];
-            this.#allContactsList.append(item);
-        });
+        let message = document.createElement('p');
+        message.classList.add('no-contacts-message');
+        if(document.querySelector('.no-contacts-message')){
+           document.querySelector('.no-contacts-message').remove();
+        }
+        if(!contactsList.length && query) {
+            message.innerText = 'No any contact was found';
+            this.#allContactsList.append(message);
+        } else if(!contactsList.length && !query) {
+            message.innerText = 'No contacts'
+            this.#allContactsList.append(message);
+        } else {
+            contactsList.forEach((elem) => {
+                let item = document.querySelector('#item-field').content.cloneNode(true);
+                
+                if(elem.get['name'])           
+                    item.querySelector('.item_name').innerText = elem.get['name'];
+                else item.querySelector('.item_name').innerText = elem.get['phone'];
+                item.querySelector('.item_id').value = elem.get['id'];
+                this.#allContactsList.append(item);
+            });
+
+        }
+       
         document.querySelectorAll('.item_open-btn').forEach((elem) => {
             elem.addEventListener('click', (event) => {
                 let id = +event.target.parentNode.querySelector('.item_id').value;

@@ -110,6 +110,10 @@ body {
 .contacts__search_btn:hover {
    background-size: 35% auto;
 }
+.no-contacts-message {
+    text-align: center;
+    padding: 10px;
+}
 .contact-form,
 .contact-item {
     position: absolute;

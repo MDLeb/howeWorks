@@ -1,39 +1,45 @@
-// Свойство data – для хранения всех добавленных контактов в массиве. Каждый эл-т массива
-// должен представлять собой объект созданный на основе класса «User».
-// 2. Метод add() – для создания контакта (на основе класса «User») и добавления его в массив data.
-// 3. Метод edit(id, obj) – для редактирования информации конкретного контакты из св-ва data,
-// используя соответствующий метод из «User». В качестве параметра нужно передать
-// идентификатор контакта для последующего поиска и объект с новыми данными для
-// редактирования.
-// 4. Метод remove(id) – для удаления контакта из общего массива данных по идентификатору. В
-// качестве параметра нужно передать идентификатор контакта.
-// 5. Метод get() – для получения всех контактов. Метод должен возвращать объект с данными из
-// св-ва data.
-
 class Contacts {
     #data = [];
-    #currentID = 0;
+    //#currentID = 0;
 
     constructor() {
-
+       if(document.cookie && window.localStorage.contactsAppData) {
+            this.#data = JSON.parse(window.localStorage.contactsAppData).map(elem => {
+                let user = new User(elem);
+                user.setID(elem.id);
+                return user;
+            });
+       } else this.updateStorage();//установит в сторэдж пустой массив #datа
     }
 
     add = (obj) => {
         let user = new User(obj);
-        user.setID(this.#currentID);
+        //user.setID(this.#currentID);
+        user.setID(Date.now());
         this.#data.push(user);
-        this.#currentID++;
-        return user.get['id'];
+        //this.#currentID++;
+        this.updateStorage();
+        return user.get['id'];       
     }
 
     edit = (id, obj) => {
         let user = this.#data.find((elem) => elem.get.id == id);
         user.edit(obj);
+        this.updateStorage();
     }
 
     remove = (id) => {
         let user = this.#data.find((elem) => elem.get['id'] == id);
         this.#data.splice(this.#data.indexOf(user), 1);
+        this.updateStorage();
+    }
+
+    updateStorage = () => {
+        let expire = 864000000;
+        document.cookie = `storageExpiration=true; expires=${(new Date(Date.now() + expire)).toUTCString()}; path=/;`;
+        let arr = Object.entries(this.get).map(el => el[1].get);
+        window.localStorage.setItem('contactsAppData', '')
+        window.localStorage.setItem('contactsAppData', JSON.stringify(arr));
     }
 
     get get() {
