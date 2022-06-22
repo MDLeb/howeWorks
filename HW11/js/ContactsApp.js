@@ -4,6 +4,7 @@ class ContactsApp extends Contacts{
     #contactFormFields = {};//поля ввода
     #contactItem;//модалка для открытия контакта
     #allContactsList;
+    #DATA;
 
     createElem = (tagName, className) => {
         let elem = document.createElement(tagName);
@@ -133,6 +134,26 @@ class ContactsApp extends Contacts{
         //--------------------------------------------------------------
         this.#container.append(name, addBtn, searchField, itemField, this.#contactForm, this.#contactItem, this.#allContactsList);
         document.body.append(this.#container);
+
+        this.showContacts();
+      
+    }
+
+    getData = async() => {
+        await fetch('https://jsonplaceholder.typicode.com/users')
+        .then(res => res.json())
+        .then(res => {
+            res.forEach((elem) => {
+                this.add({
+                    name: elem.name,
+                    email: elem.email,
+                    address: `${elem.address.city}, ${elem.address.street}`,
+                    phone: elem.phone,
+                })
+            });
+            //comment
+            this.#DATA = this.get;
+        }).then(() => this.showContacts());
     }
 
     onSave = () => {
@@ -158,7 +179,7 @@ class ContactsApp extends Contacts{
         let user = this.get[id];
         if(confirm(`Do you want to remove contact ${user.get['name']}`)){
             this.remove(id);
-            this.showContacts();
+            this.showContacts(false, false);
         }
     }
     showSelectedContact = (id) => {
@@ -182,22 +203,27 @@ class ContactsApp extends Contacts{
         this.#contactForm.querySelector('.contact-form__id').value = user.get[`id`];
     }
 
-    showContacts = (query = false) => {
+    showContacts = (query = false, getFake = true) => {
+        if(!JSON.parse(window.localStorage.contactsAppData).length && getFake) {
+            this.getData();
+        } else {
+            this.#DATA = this.get;
+        }
         document.querySelectorAll('.item-field').forEach((elem) => elem.remove());
         let contactsList = [];
         function SortArray(x, y){
             return x.get.name.localeCompare(y.get.name);
         }
         if(!query){
-            for(let user in this.get) {
-                contactsList.push(this.get[user]);
+            for(let user in this.#DATA) {
+                contactsList.push(this.#DATA[user]);
             }
         }else{
-            for(let user in this.get) {
-                if(this.get[user].get.name.toLowerCase().includes(query.toLowerCase()))
-                contactsList.push(this.get[user]);
-                if(this.get[user].get.phone.toLowerCase().includes(query.toLowerCase()))
-                contactsList.push(this.get[user]);
+            for(let user in this.#DATA) {
+                if(this.#DATA[user].get.name.toLowerCase().includes(query.toLowerCase()))
+                contactsList.push(this.#DATA[user]);
+                if(this.#DATA[user].get.phone.toLowerCase().includes(query.toLowerCase()))
+                contactsList.push(this.#DATA[user]);
             }
         }
         contactsList.sort(SortArray);

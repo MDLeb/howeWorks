@@ -14,10 +14,8 @@ class Contacts {
 
     add = (obj) => {
         let user = new User(obj);
-        //user.setID(this.#currentID);
-        user.setID(Date.now());
+        user.setID(Date.now() + Math.floor(Math.random() * 150));
         this.#data.push(user);
-        //this.#currentID++;
         this.updateStorage();
         return user.get['id'];       
     }
@@ -47,6 +45,7 @@ class Contacts {
         this.#data.forEach((elem) => {
             result[elem.get['id']] = elem;
         });
+        //{id:{USER}, id:{USER}}
         return result;
     }
 }

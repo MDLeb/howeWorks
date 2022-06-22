@@ -1,4 +1,4 @@
 let application = new ContactsApp()
 
 application.createApp();
-application.showContacts();
+// application.showContacts();
